@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 interface CarouselProps {
-  children: React.ReactNode[]
+  children: React.ReactNode
   itemsPerView?: number
 }
 
@@ -64,21 +64,7 @@ export function Carousel({ children, itemsPerView = 3 }: CarouselProps) {
           className="flex gap-4 overflow-x-auto scroll-smooth pb-2 [-webkit-overflow-scrolling:touch] transition-all duration-300"
           style={{ scrollBehavior: 'smooth' }}
         >
-          {children && Array.isArray(children) && children.map((child, index) => (
-            <div
-              key={index}
-              className={`transition-all duration-500 ${
-                isScrolling ? 'opacity-90' : 'opacity-100'
-              }`}
-              style={{
-                animation: scrollDirection 
-                  ? `${scrollDirection === 'right' ? 'slideInRight' : 'slideInLeft'} 0.6s ease-out ${index * 0.08}s both`
-                  : `slideIn 0.6s ease-out ${index * 0.1}s both`
-              }}
-            >
-              {child}
-            </div>
-          ))}
+          {children}
         </div>
 
         <Button
@@ -143,7 +129,7 @@ export function Carousel({ children, itemsPerView = 3 }: CarouselProps) {
 
 export function CarouselItem({ children, className = '' }: { children: React.ReactNode, className?: string }) {
   return (
-    <div className={`flex-shrink-0 w-80 ${className}`}>
+    <div className={`flex-shrink-0 w-80 ${className} transition-all duration-500 animate-in slide-in-from-right`}>
       {children}
     </div>
   )
